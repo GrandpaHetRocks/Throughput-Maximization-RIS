@@ -196,7 +196,7 @@ for runs=1:run
               while(1)
     %             step=1/(start);
                 rho=rho0*rhom^m;
-                phi1=phi-grad*rho;
+                phi1=phigrad*rho;
                 f1=exp(j.*phi)'*U*exp(j.*phi)-2*real(v'*exp(j.*phi));
                 f2=exp(j.*phi1)'*U*exp(j.*phi1)-2*real(v'*exp(j.*phi1));
                 if(f1-f2>(-grad'*grad)*sig*rho)
