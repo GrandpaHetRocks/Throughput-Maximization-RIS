@@ -4,7 +4,7 @@ clear all
 
 final__=zeros(1,51);
 
-run=10;
+run=1;
 
 %  k=4;
 %     n=10;
@@ -38,10 +38,10 @@ for runs=1:run
     P=ones(1,k)/scaling;
     [hij_array,theta,Hri_array,G_array]=channel_generation(k,n);
     alphak=0;
-    sumrate1=[];
-    sumrate2=[];
-    sumrate3=[];
-    sumrate4=[];
+%     sumrate1=[];
+%     sumrate2=[];
+%     sumrate3=[];
+%     sumrate4=[];
 
     betas=zeros(k,1);
     alphas=zeros(k,1);
@@ -79,7 +79,7 @@ for runs=1:run
 
 
 %     net_sumrate=(sumrate1+sumrate2+sumrate3+sumrate4);
-    net_sumrate=sumrate_calc(hij_array,theta,Hri_array,G_array,k,P,sumrate1,sumrate2,sumrate3,sumrate4);
+    net_sumrate=sumrate_calc(hij_array,theta,Hri_array,G_array,k,P);%,sumrate1,sumrate2,sumrate3,sumrate4);
     final=[final net_sumrate];
 
         for iterates=1:50
@@ -239,6 +239,8 @@ hold on
 plot((final__)/run,"linewidth",1.5)
 xlabel("Iterations")
 ylabel("Sum Rate")
+
+[x,fval]=ga(@(net_sumrate) sumrate_calc(hij_array,theta,Hri_array,G_array,k,P),6)
 
 
 

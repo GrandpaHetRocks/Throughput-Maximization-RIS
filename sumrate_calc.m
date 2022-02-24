@@ -1,4 +1,9 @@
-function [net_sumrate]=sumrate_calc(hij_array,theta,Hri_array,G_array,k,P,sumrate1,sumrate2,sumrate3,sumrate4)
+function [net_sumrate]=sumrate_calc(hij_array,theta,Hri_array,G_array,k,P)%,sumrate1,sumrate2,sumrate3,sumrate4)
+sumrate1=[];
+sumrate2=[];
+sumrate3=[];
+sumrate4=[];
+
 for i=1:k
             sum3=0;
             for j=1:k
