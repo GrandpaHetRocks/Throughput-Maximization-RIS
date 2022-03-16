@@ -86,10 +86,10 @@ for runs=1:run
             for i=1:k
                 sum4=0;
                 for j=1:k
-        %             if(j~=i)
+%                     if(j~=i)
                     hk_=P(j)*abs(hij_array(i,j)'+G_array(j)*theta'*Hri_array(:,i))^2;
                     sum4=sum4+hk_;
-        %             end
+%                     end
                 end
                 betai=(P(i)*sqrt((1+alphas(i))) * (hij_array(i,i)'+ G_array(i)*theta'*Hri_array(:,i)))/sum4;
                 betas(i)=betai;
@@ -240,7 +240,7 @@ plot((final__)/run,"linewidth",1.5)
 xlabel("Iterations")
 ylabel("Sum Rate")
 
-[x,fval]=ga(@(net_sumrate) sumrate_calc(hij_array,theta,Hri_array,G_array,k,P),6)
+[x,fval]=ga(@(net_sumrate) sumrate_calc(hij_array,theta,Hri_array,G_array,k,P),7)
 
 
 
