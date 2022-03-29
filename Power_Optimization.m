@@ -5,18 +5,19 @@ clear all
 final__=zeros(1,51);
 x_=[];
 
-run=10;
-value1=0;
+run=2000;
+
 
 
 
 scaling=10^6;
 % maxpow=1/scaling;
 maxpow=1;
+k=4;
 
 idx=0;
 for runs=1:run
-    k=4;
+    value1=ones(1,k)*10000;
     n=100;
     P=ones(1,k);%/scaling;
     [hij_array,theta,Hri_array,G_array]=channel_generation(k,n);
@@ -202,13 +203,14 @@ for runs=1:run
                 gamma=num1/sum3;
 %             sum5
             valuetemp=value1;
-            value1=(1+gamma)*abs(hij_array(i,i)'+G_array(i)*theta2'*Hri_array(:,i))^2 * abs(yi(i))^2/(sum5);
+            value1(i)=(1+gamma)*abs(hij_array(i,i)'+G_array(i)*theta2'*Hri_array(:,i))^2 * abs(yi(i))^2/(sum5);
 %             maxpow
 %             value1
-            if(value1>5 || value1<1)
-                value1=valuetemp;
+            if(value1(i)>1 || (value1(i)<0.06 && value1(i)~=0))
+                value1(i)=valuetemp(i);
             end
-            P(i)=max(maxpow,value1);
+%             value1
+            P(i)=min(maxpow,value1(i));
             end
             
             
@@ -224,11 +226,12 @@ for runs=1:run
         end
     if(final(35)~=final(1))
         final__= final__ + final;
-        [x,fval]=ga(@(net_sumrate) sumrate_calc(hij_array,theta,Hri_array,G_array,k,P),6);
+        [x,fval]=ga(@(net_sumrate) sumrate_calc(hij_array,theta,Hri_array,G_array,k,P),7,optimoptions('ga','MaxGenerations',1000));
         x_=[x_ fval];
         idx=idx+1;
         P
     end
+    runs
 end
 
 hold on    
