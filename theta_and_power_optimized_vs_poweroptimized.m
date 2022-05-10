@@ -5,9 +5,10 @@ close all
 
 final__=zeros(1,51);
 final__power=zeros(1,51);
+final__theta=zeros(1,51);
 x_=[];
 
-run=100;
+run=20;
 
 
 
@@ -37,10 +38,12 @@ for runs=1:run
     grad_=[];
     final=[];
     final_poweronly=[];
+    final_thetaonly=[];
     
     net_sumrate=sumrate_calc(hij_array,theta,Hri_array,G_array,k,P);%,sumrate1,sumrate2,sumrate3,sumrate4);
     final=[final net_sumrate];
     final_poweronly=[final_poweronly net_sumrate];
+    final_thetaonly=[final_thetaonly net_sumrate];
 
         for iterates=1:50
             for i=1:k
@@ -219,6 +222,9 @@ for runs=1:run
 
             net_sumrate_poweronly=sumrate_calc(hij_array,theta,Hri_array,G_array,k,P);
             final_poweronly=[final_poweronly net_sumrate_poweronly];
+
+            net_sumrate_thetaonly=sumrate_calc(hij_array,theta2,Hri_array,G_array,k,[1 1 1 1]);
+            final_thetaonly=[final_thetaonly net_sumrate_thetaonly];
             
             
             new_net=(sumrate1+sumrate2+sumrate3+sumrate4);
@@ -231,9 +237,10 @@ for runs=1:run
             theta=exp(j.*phi);
             final=[final net_sumrate];   
         end
-    if(final(35)~=final(1) && final_poweronly(35)~=final_poweronly(1))
+    if(final(35)~=final(1) && final_poweronly(35)~=final_poweronly(1) && final_thetaonly(35)~=final_thetaonly(1))
         final__= final__ + final;
         final__power=final__power+final_poweronly;
+        final__theta=final__theta+final_thetaonly;
         [x,fval]=ga(@(net_sumrate) sumrate_calc(hij_array,theta,Hri_array,G_array,k,P),7,optimoptions('ga','MaxGenerations',1000));
         x_=[x_ fval];
         idx=idx+1;
@@ -245,10 +252,11 @@ end
 hold on    
 plot((final__)/idx,"linewidth",1.5)
 plot((final__power)/idx,"linewidth",1.5)
+plot((final__theta)/idx,"linewidth",1.5)
 sum(x_)/length(x_)
 xlabel("Iterations")
 ylabel("Sum Rate")
-legend('FP+BCD','FP','location','southeast')
+legend('Theta+Power Optimized','Power Optimized','Theta Optimized','location','southeast')
 
 
 
