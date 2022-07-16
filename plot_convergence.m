@@ -1,4 +1,4 @@
-load('constraint')
+load('comparisons_1')
 hold on    
 plot((final__)/idx,'r',"linewidth",1.5)
 plot((final__power)/idx,'b',"linewidth",1.5)
