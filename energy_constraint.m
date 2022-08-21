@@ -9,7 +9,7 @@ final__power=zeros(1,51);
 final__theta=zeros(1,51);
 x_=[];
 
-run=30;
+run=100;
 emin=50;  %100 500 1000 1500 3000 4000 5000
 receiver_energy=[0 0 0 0];
 

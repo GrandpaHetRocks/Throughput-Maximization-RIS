@@ -1,18 +1,22 @@
-sr_both=[2.80064 4.24896 5.47434 5.88465 6.11297 6.2757];
-sr_theta=[2.23 2.23485 2.23485 2.23485 2.23 2.23485];
-sr_power=[2.4608 3.69708 4.58637 4.8761 5.04239 5.16055];
-ga=[2.4603 3.7729 4.6622 4.9520 5.1183 5.2364];
-pmax=[1 10 50 100 150 200];
+%emin=2   n=40
+figure
+sr_both=[4.02 4.79 5.27 5.63 5.92];
+sr_theta=[2.06 2.09 2.061 2.07 2.06];
+sr_power=[3.5804 3.72 3.93 3.97 4.03];
+ga=[3.82 3.9172 4.07 4.14 4.30];
+no_ris=[2.11693 2.12 2.128 2.17693 2.21];
+pmax=[10 20 30 40 50];
 hold on
 plot(pmax, sr_both,'--or','linewidth',2);
-plot(pmax, sr_power,'--ob','linewidth',2)
 plot(pmax, ga,'--ok','linewidth',2)
+plot(pmax, sr_power,'--ob','linewidth',2)
+plot(pmax,no_ris,'--om','LineWidth',2)
 plot(pmax, sr_theta,'--og','linewidth',2)
 
 
 grid on
 xticks(pmax)
-xticklabels({'1','10','50','100','150','200'})
-xlabel('pmax')
-ylabel('Sum Rate')
-legend('Proposed Algorithm','Maximum Power','Genetic Algorithm','Random Phase','location','best')
+xticklabels({'10','20','30','40','50'})
+xlabel('P_{max} (mW)')
+ylabel('Sum Rate (bps/Hz)')
+legend('Proposed Algorithm','Genetic Algorithm','Maximum Power','No RIS','Random Phase','location','best')
